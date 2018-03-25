@@ -40,3 +40,7 @@ height: auto !important;
     background-color: red;
     height: 340px;
 }
+
+#addGameButton {
+    margin-left: 15px;    
+}
