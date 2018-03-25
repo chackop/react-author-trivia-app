@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 (function () {
     'use strict';
 
@@ -47,7 +46,7 @@
                     }           
                     <div className="row">
                         <div className="col-md-12">
-                            <input onClick={this.handleAddGame} id="addGameButton" type="button" value="Add Game" class="btn " />
+                            <input onClick={this.handleAddGame} id="addGameButton" type="button" value="Add Game" className="btn " />
                         </div>
                     </div>        
                 </div>
@@ -73,9 +72,9 @@
         propTypes: {
             onGameFormSubmitted: React.PropTypes.func.isRequired
         },
-        handleSubmit: function () {
+        handleSubmit: function (e) {
             this.props.onGameFormSubmitted(getRefs(this));
-            return false;
+            e.preventDefault();
         },
         render: function () {
             return <div>
@@ -83,22 +82,22 @@
                             <div className="col-md-12">
                                 <h1>Add Game Form</h1>
                                 <form role="form" onSubmit={this.handleSubmit}>
-                                  <div class="form-group">
-                                    <input ref="imageUrl" type="text" class="form-control" placeholder="Image Url" />
+                                  <div className="form-group">
+                                    <input ref="imageUrl" type="text" className="form-control" placeholder="Image Url" />
                                   </div>
-                                  <div class="form-group">
-                                    <input ref="answer1" type="text" class="form-control" placeholder="Answer 1" />
+                                  <div className="form-group">
+                                    <input ref="answer1" type="text" className="form-control" placeholder="Answer 1" />
                                   </div>
-                                  <div class="form-group">
-                                    <input ref="answer2" type="text" class="form-control" placeholder="Answer 2" />
+                                  <div className="form-group">
+                                    <input ref="answer2" type="text" className="form-control" placeholder="Answer 2" />
                                   </div>
-                                  <div class="form-group">
-                                    <input ref="answer3" type="text" class="form-control" placeholder="Answer 3" />
+                                  <div className="form-group">
+                                    <input ref="answer3" type="text" className="form-control" placeholder="Answer 3" />
                                   </div>
-                                  <div class="form-group">
-                                    <input ref="answer4" type="text" class="form-control" placeholder="Answer 4" />
+                                  <div className="form-group">
+                                    <input ref="answer4" type="text" className="form-control" placeholder="Answer 4" />
                                   </div>
-                                  <button type="submit" class="btn btn-default">Submit</button>
+                                  <button type="submit" className="btn btn-default">Submit</button>
                                 </form>
                             </div>                            
                         </div> 
@@ -171,11 +170,11 @@
 
     routie({
         'add': function() {
-            React.renderComponent(<AddGameForm onGameFormSubmitted={handleAddFormSubmitted} />, 
+            React.render(<AddGameForm onGameFormSubmitted={handleAddFormSubmitted} />, 
                 document.getElementById('app'));
         },
         '': function() {
-            React.renderComponent(<Quiz data={data} />, 
+            React.render(<Quiz data={data} />, 
                 document.getElementById('app'));
         }
     });
@@ -186,14 +185,14 @@
             books: [data.answer1, data.answer2, data.answer3, data.answer4]
         }];
         quizData.selectGame = selectGame;
-        React.renderComponent(<Quiz data={quizData} />, 
+        React.render(<Quiz data={quizData} />, 
                 document.getElementById('app'));
     }
 
     function getRefs(component) {
         var result = {};
         Object.keys(component.refs).forEach(function(refName) {
-            result[refName] = component.refs[refName].getDOMNode().value;
+            result[refName] = React.findDOMNode(component.refs[refName]).value;
         });
         return result;
     }
